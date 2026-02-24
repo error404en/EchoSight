@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blind AI Assistant</title>
+
+<!-- TensorFlow for Object Detection -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+<!-- Tesseract OCR -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+
+<!-- Face Recognition -->
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+
+<style>
+body { background:black; color:white; text-align:center; font-family:Arial; }
+button { font-size:20px; padding:15px; margin:10px; }
+video { width:90%; border:3px solid white; }
+</style>
+</head>
+
+<body>
+<h1>Blind AI Visual Assistant</h1>
+
+<button onclick="startCamera()">Start Camera</button>
+<button onclick="readText()">Read Text</button>
+<button onclick="registerFace()">Save Face</button>
+<button onclick="recognizeFace()">Recognize Face</button>
+
+<video id="video" autoplay></video>
+
+<script>
+let model;
+const video = document.getElementById("video");
+
+// ================== SPEAK FUNCTION ==================
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(msg);
+}
+
+// ================== CAMERA ==================
+async function startCamera() {
+  speak("Starting camera and object detection");
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  video.srcObject = stream;
+
+  model = await cocoSsd.load();
+  detectObjects();
+}
+
+// ================== OBJECT DETECTION ==================
+async function detectObjects() {
+  const predictions = await model.detect(video);
+  if (predictions.length > 0) {
+    speak("I see " + predictions[0].class);
+  }
+  requestAnimationFrame(detectObjects);
+}
+</script>
+
+</body>
+</html>
+

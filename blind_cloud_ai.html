@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Blind AI Assistant (Cloud)</h2>
+<button onclick="startCamera()">Start Camera</button>
+<button onclick="sendToAI()">Detect Objects</button>
+
+<video id="video" autoplay></video>
+
+<script>
+const video = document.getElementById("video");
+const API_URL = "https://abc123.ngrok.io/detect"; // replace with your URL
+
+function speak(text) {
+  let msg = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(msg);
+}
+
+async function startCamera() {
+  const stream = await navigator.mediaDevices.getUserMedia({video:true});
+  video.srcObject = stream;
+}
+
+async function sendToAI() {
+  let canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video,0,0);
+
+  let blob = await new Promise(r => canvas.toBlob(r));
+  let formData = new FormData();
+  formData.append("image", blob);
+
+  let res = await fetch(API_URL, {method:"POST", body:formData});
+  let data = await res.json();
+
+  speak("I see " + data.objects.join(", "));
+}
+</script>
+</body>
+</html>
