@@ -1,0 +1,93 @@
+# ==============================
+# OS FILES
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# LOG FILES
+# ==============================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==============================
+# ENV FILES (IMPORTANT)
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# NODE / REACT
+# ==============================
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+
+# Build outputs
+build/
+dist/
+
+# React specific
+.next/
+out/
+coverage/
+
+# ==============================
+# FLUTTER / DART
+# ==============================
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Flutter specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# Generated files
+*.lock
+!pubspec.lock
+
+# ==============================
+# ANDROID (Flutter)
+# ==============================
+android/.gradle/
+android/app/build/
+android/local.properties
+*.keystore
+*.jks
+
+# ==============================
+# IOS (Flutter)
+# ==============================
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/.last_build_id
+ios/Runner.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+
+# ==============================
+# IDE / EDITOR
+# ==============================
+.vscode/
+.idea/
+*.iml
+
+# ==============================
+# TEMP FILES
+# ==============================
+*.tmp
+*.temp
+*.swp
+
+# ==============================
+# MISC
+# ==============================
+coverage/
