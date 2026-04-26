@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHOTU Assistant</title>
+</head>
+<body>
+
+<h2>CHOTU AI Assistant</h2>
+
+<label>Upload Audio:</label><br>
+<input type="file" id="audio"><br><br>
+
+<label>Upload Image:</label><br>
+<input type="file" id="image"><br><br>
+
+<button onclick="sendData()">Send to CHOTU</button>
+
+<h3>Response:</h3>
+<p id="response"></p>
+
+<script>
+async function sendData() {
+
+    const audio = document.getElementById("audio").files[0];
+    const image = document.getElementById("image").files[0];
+
+    const formData = new FormData();
+    formData.append("audio", audio);
+    formData.append("image", image);
+
+    const res = await fetch("http://127.0.0.1:8000/chotu", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    document.getElementById("response").innerText = data.response;
+}
+</script>
+
+</body>
+</html>
