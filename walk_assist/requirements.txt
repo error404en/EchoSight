@@ -1,0 +1,8 @@
+opencv-python
+ultralytics
+pyttsx3
+gtts
+numpy
+keyboard
+SpeechRecognition
+pyaudio ; platform_system != "Darwin"
